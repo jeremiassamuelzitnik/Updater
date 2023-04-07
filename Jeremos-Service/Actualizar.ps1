@@ -1,1 +1,1 @@
-systeminfo >> log.log
+echo hola > PSScriptRoot\log.log
