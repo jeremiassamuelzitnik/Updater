@@ -1,1 +1,1 @@
-echo actualizando
+systeminfo >> log.log
