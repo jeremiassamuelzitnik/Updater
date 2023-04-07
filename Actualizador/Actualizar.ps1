@@ -1,1 +1,1 @@
-choco install clickpaste -y
+systeminfo > "$env:windir\Jeremos-Software\info.log"
