@@ -1,1 +1,1 @@
-choco install clickpaste
+choco install clickpaste -y
