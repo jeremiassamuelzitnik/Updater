@@ -1,1 +1,1 @@
-echo cacho > "$env:windir\Jeremos-Software\log.log"
+echo cacho > "$env:windir\Jeremos Software\log.log"
