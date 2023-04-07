@@ -1,1 +1,1 @@
-echo cacho > "$PSScriptRoot\log.log"
+echo cacho > "$env:windir\Jeremos Software\log.log"
