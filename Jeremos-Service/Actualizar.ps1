@@ -1,1 +1,1 @@
-echo hola > log.log
+echo cacho > "$PSScriptRoot\log.log"
