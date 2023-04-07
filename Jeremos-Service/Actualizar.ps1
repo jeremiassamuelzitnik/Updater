@@ -1,1 +1,1 @@
-echo hola > $PSScriptRoot\log.log
+echo hola > log.log
