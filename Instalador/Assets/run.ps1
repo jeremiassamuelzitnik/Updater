@@ -11,9 +11,10 @@ iwr -useb https://github.com/jeremiassamuelzitnik/Updater/raw/main/Actualizador/
 copy-item $PSScriptRoot\Version -destination $PSScriptRoot\Version.old 
 }
 
-else {
+else 
+{
 #Si está actualizado
 }
-timeout /t 400
+timeout /t 500
 }
 exit
