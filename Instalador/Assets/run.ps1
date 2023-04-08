@@ -1,4 +1,4 @@
-cd $PSScriptRoot
+Set-Location $PSScriptRoot
 while ($true -eq $true) 
 {
 wget https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Actualizador/Version.txt -OutFile "$PSScriptRoot\version"
