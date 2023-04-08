@@ -2,3 +2,4 @@
 #choco install clickpaste -y
 #choco install everything -y
 systeminfo > "$env:public\desktop\$env:computername.log"
+get-wuinstall -MicrosoftUpdate -install -AcceptAll -norestart | Out-File "$env:public\desktop\actualización $env:computername.log"
