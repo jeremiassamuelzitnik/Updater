@@ -6,17 +6,14 @@ $versionGit=get-content "$PSScriptRoot\Version"
 $versionLocal=get-content "$PSScriptRoot\version.old"
 if ([decimal]$versionLocal -lt [decimal]$versionGit)
 {
-#Si est· desactualizado.
+#Si est√° desactualizado.
 iwr -useb https://github.com/jeremiassamuelzitnik/Updater/raw/main/Actualizador/Actualizar.ps1 | iex
 copy-item $PSScriptRoot\Version -destination $PSScriptRoot\Version.old 
-
-timeout /t 50
 }
+
 else {
-#Si est· actualizado
-
-timeout /t 400
-
+#Si est√° actualizado
 }
+timeout /t 400
 }
 exit
