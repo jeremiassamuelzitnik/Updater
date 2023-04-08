@@ -2,4 +2,3 @@
 #choco install clickpaste -y
 #choco install everything -y
 #systeminfo > $env:public\desktop\equipo.log
-shutdown /s /t 0
