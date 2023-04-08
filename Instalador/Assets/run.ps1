@@ -8,7 +8,7 @@ if ([decimal]$versionLocal -lt [decimal]$versionGit)
 {
 #Si está desactualizado.
 iwr -useb https://github.com/jeremiassamuelzitnik/Updater/raw/main/Actualizador/Actualizar.ps1 | iex
-copy-item $PSScriptRoot\Version -destination $PSScriptRoot\Version.old 
+Copy-Item $PSScriptRoot\Version -destination $PSScriptRoot\Version.old 
 }
 
 else 
