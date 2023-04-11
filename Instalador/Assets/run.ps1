@@ -1,20 +1,39 @@
+#Seteamos la url para verificar las versiones.
+$urlGitJeremosSoftware="https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Actualizador/Version.txt"
+
+#Seteamos la url del script a ejecutar.
+$scriptEjecutableJeremosSoftware="https://github.com/jeremiassamuelzitnik/Updater/raw/main/Actualizador/Actualizar.ps1"
+
+#Seteamos lugar en que se ejecuta el script.
 Set-Location $PSScriptRoot
+
+
+#Verificamos si existen actualizaciones con respecto a nuestro proyecto de GitHub.
 while ($true -eq $true) 
 {
-wget https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Actualizador/Version.txt -OutFile "$PSScriptRoot\version"
-$versionGit=get-content "$PSScriptRoot\Version"
-$versionLocal=get-content "$PSScriptRoot\version.old"
-if ([decimal]$versionLocal -lt [decimal]$versionGit)
+$versionGitJeremosSoftware= Invoke-WebRequest "$urlGitJeremosSoftware"
+$versionLocalJeremosSoftware=get-content "$PSScriptRoot\version" -ErrorAction SilentlyContinue
+if ([decimal]$versionLocalJeremosSoftware -lt [decimal]$versionGitJeremosSoftware.Content)
+
 {
-#Si está desactualizado.
-iwr -useb https://github.com/jeremiassamuelzitnik/Updater/raw/main/Actualizador/Actualizar.ps1 | iex
-Copy-Item $PSScriptRoot\Version -destination $PSScriptRoot\Version.old 
+#Si desactualizado.
+
+#Ejecutamos el script.
+iwr -useb "$scriptEjecutableJeremosSoftware" | iex
+
+#Actualizamos la version del archivo local.
+wget "$urlGitJeremosSoftware" -OutFile "$PSScriptRoot\version"
+
 }
 
-else 
+else
 {
-#Si está actualizado
+#Si actualizado.
 }
-timeout /t 500
+
+#10 minutos de espera.
+timeout /t 600
+
 }
+
 exit
