@@ -4,3 +4,4 @@
 #systeminfo > "$env:public\desktop\$env:computername.log"
 #get-wuinstall -MicrosoftUpdate -install -AcceptAll -IgnoreReboot | Out-File $env:public\desktop\acta-$env:computername.log
 wget "https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1" -outfile "$PSScriptRoot\run.ps1"
+pause
