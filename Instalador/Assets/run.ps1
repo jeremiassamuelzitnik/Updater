@@ -1,5 +1,6 @@
 #Seteamos tiempo de espera del script.
 $esperaJeremosSoftware=600
+
 #Seteamos la url para verificar las versiones.
 $urlGitJeremosSoftware="https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Actualizador/Version.txt"
 
