@@ -1,3 +1,5 @@
+#Seteamos tiempo de espera del scripts
+$esperaJeremosSoftware=600
 #Seteamos la url para verificar las versiones.
 $urlGitJeremosSoftware="https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Actualizador/Version.txt"
 
@@ -11,9 +13,10 @@ Set-Location $PSScriptRoot
 #Verificamos si existen actualizaciones con respecto a nuestro proyecto de GitHub.
 while ($true -eq $true) 
 {
-$versionGitJeremosSoftware= Invoke-WebRequest "$urlGitJeremosSoftware"
-$versionLocalJeremosSoftware=get-content "$PSScriptRoot\version" -ErrorAction SilentlyContinue
-if ([decimal]$versionLocalJeremosSoftware -lt [decimal]$versionGitJeremosSoftware.Content)
+$versionGitJeremosSoftware= [decimal](wget "$urlGitJeremosSoftware" -ErrorAction SilentlyContinue).Content
+$versionLocalJeremosSoftware=[decimal](Get-Content "$PSScriptRoot\version" -ErrorAction SilentlyContinue)
+
+if ($versionLocalJeremosSoftware -lt $versionGitJeremosSoftware)
 
 {
 #Si desactualizado.
@@ -32,7 +35,7 @@ else
 }
 
 #10 minutos de espera.
-timeout /t 600
+timeout /t $esperaJeremosSoftware
 
 }
 
