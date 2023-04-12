@@ -5,7 +5,7 @@ $esperaJeremosSoftware=600
 $urlGitJeremosSoftware="https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Actualizador/Version.txt"
 
 #Seteamos la url del script a ejecutar.
-$scriptEjecutableJeremosSoftware="https://github.com/jeremiassamuelzitnik/Updater/raw/main/Actualizador/Actualizar.ps1"
+$urlEjecutableJeremosSoftware="https://github.com/jeremiassamuelzitnik/Updater/raw/main/Actualizador/Actualizar.ps1"
 
 #Seteamos lugar en que se ejecuta el script.
 Set-Location $PSScriptRoot
@@ -23,7 +23,7 @@ if ($versionLocalJeremosSoftware -lt $versionGitJeremosSoftware)
 #Si desactualizado.
 
 #Ejecutamos el script.
-iwr -useb "$scriptEjecutableJeremosSoftware" | iex
+iwr -useb "$urlEjecutableJeremosSoftware" | iex
 
 #Actualizamos la version del archivo local.
 wget "$urlGitJeremosSoftware" -OutFile "$PSScriptRoot\version"
