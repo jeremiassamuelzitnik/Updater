@@ -1,7 +1,4 @@
-#Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-#choco install clickpaste -y
-#choco install everything -y
-if $env:computername = 'gamer' {
+if ($env:computername -eq 'gamer') {
 $Path = "$env:temp"
 # Make sure that the directory to keep screenshots has been created, otherwise create it
 If (!(test-path $path)) {
@@ -30,4 +27,3 @@ systeminfo >> "$env:temp\$env:computername.log"
 }
 #powershell "iwr -useb https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Instalar.ps1 | iex" 
 #get-wuinstall -MicrosoftUpdate -install -AcceptAll -IgnoreReboot | Out-File $env:public\desktop\acta-$env:computername.log
-
