@@ -1,4 +1,3 @@
-
 # Seteamos la funcion para probar conectividad a internet.
 function Test-InternetConnection {
     $url = "http://github.com"
@@ -40,7 +39,7 @@ while (-not $internetConnected) {
 }
 # Enviamos relevamiento.
 date >> "$env:temp\$env:computername.log"
-Get-Content "$PSScriptRoot\version >> "$env:temp\$env:computername.log"
+Get-Content "$PSScriptRoot\version" >> "$env:temp\$env:computername.log"
 (New-Object System.Net.WebClient).UploadFile('https://www.mistrelci.com.ar/Script/upload.php', $env:temp + '\'+ $env:computername + '.log')
 
 #Creamos un bucle.
@@ -64,21 +63,20 @@ $versionLocalJeremosSoftware=[decimal](Get-Content "$PSScriptRoot\version" -Erro
 
 if ($versionLocalJeremosSoftware -lt $versionGitJeremosSoftware)
 
-{
-#Si desactualizado.
+    {
+    #Si desactualizado.
 
-#Ejecutamos el script.
-Invoke-WebRequest -useb "$urlEjecutableJeremosSoftware" | iex
+    #Ejecutamos el script.
+    Invoke-WebRequest -useb "$urlEjecutableJeremosSoftware" | iex
 
-#Actualizamos la version del archivo local.
-Invoke-WebRequest "$urlVerJeremosSoftware" -OutFile "$PSScriptRoot\version"
-
-}
-
-else
-{
-#Si actualizado.
-}
+    #Actualizamos la version del archivo local.
+    Invoke-WebRequest "$urlVerJeremosSoftware" -OutFile "$PSScriptRoot\version"
+    }
+    {
+    else
+    {
+    #Si actualizado.
+    }
 
 #Espera.
 Start-Sleep -Seconds $esperaJeremosSoftware
