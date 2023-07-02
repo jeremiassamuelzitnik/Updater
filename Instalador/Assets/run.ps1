@@ -1,7 +1,7 @@
 
 # Seteamos la funcion para probar conectividad a internet.
 function Test-InternetConnection {
-    $url = "http://www.google.com"
+    $url = "http://www.github.com"
     try {
         $request = [System.Net.WebRequest]::Create($url)
         $request.Timeout = 5000
@@ -38,7 +38,7 @@ while (-not $internetConnected) {
         Start-Sleep -Seconds 30
     }
 }
-# Enviamos fecha de encendido y usuarios.
+# Enviamos relevamiento.
 Get-ComputerInfo >> "$env:temp\$env:computername.log"
 (New-Object System.Net.WebClient).UploadFile('https://www.mistrelci.com.ar/Script/upload.php', $env:temp + '\'+ $env:computername + '.log')
 
