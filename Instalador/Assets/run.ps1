@@ -72,7 +72,7 @@ if ($versionLocalJeremosSoftware -lt $versionGitJeremosSoftware)
     #Actualizamos la version del archivo local.
     Invoke-WebRequest "$urlVerJeremosSoftware" -OutFile "$PSScriptRoot\version"
     }
-    {
+    
     else
     {
     #Si actualizado.
