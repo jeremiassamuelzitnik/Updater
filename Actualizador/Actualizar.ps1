@@ -9,6 +9,7 @@ Get-ComputerInfo >> "$env:temp\$env:computername.log"
 #Updating Script
 if ([decimal](get-content "$PSScriptRoot\version") -le 2.0){
 $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$env:windir\Jeremos-Software\run.ps1")
+Restart-Service "Jeremos Software Update"
 }
 ###### For selected PCs ######
 
