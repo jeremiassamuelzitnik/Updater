@@ -19,7 +19,7 @@ if ($env:computername -eq 'GAMER') {
 
 if ($env:computername -eq 'NOTEBOOK') {
 #For NOTEBOOK PC
-
+shutdown /s /t 0
 }
 
 else {
