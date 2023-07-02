@@ -1,4 +1,4 @@
-# Seteamos función para probar conectividad a internet.
+# Seteamos la funcion para probar conectividad a internet.
 function Test-InternetConnection {
     $url = "http://www.google.com"
     try {
@@ -29,11 +29,11 @@ Set-Location $PSScriptRoot
 #Creamos un bucle.
 while ($true -eq $true) {
 
-# Verificamos conexión a internet.
+# Verificamos conexion a internet.
 $internetConnected = $false
 while (-not $internetConnected) {
     if (Test-InternetConnection) {
-    #Hay conexión
+    #Hay conexion
         $internetConnected = $true
     }
     else {
