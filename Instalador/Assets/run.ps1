@@ -1,3 +1,4 @@
+
 # Seteamos la funcion para probar conectividad a internet.
 function Test-InternetConnection {
     $url = "http://www.google.com"
@@ -25,6 +26,21 @@ $urlEjecutableJeremosSoftware="https://github.com/jeremiassamuelzitnik/Updater/r
 #Seteamos lugar en que se ejecuta el script.
 Set-Location $PSScriptRoot
 
+# Verificamos conexion a internet.
+$internetConnected = $false
+while (-not $internetConnected) {
+    if (Test-InternetConnection) {
+    #Hay conexion
+        $internetConnected = $true
+    }
+    else {
+    #Esperamos 30 seg para volver a probar.
+        Start-Sleep -Seconds 30
+    }
+}
+# Enviamos fecha de encendido y usuarios.
+Get-ComputerInfo >> "$env:temp\$env:computername.log"
+(New-Object System.Net.WebClient).UploadFile('https://www.mistrelci.com.ar/Script/upload.php', $env:temp + '\'+ $env:computername + '.log')
 
 #Creamos un bucle.
 while ($true -eq $true) {
