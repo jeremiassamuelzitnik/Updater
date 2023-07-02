@@ -1,3 +1,18 @@
+# Seteamos función para probar conectividad a internet.
+function Test-InternetConnection {
+    $url = "http://www.google.com"
+    try {
+        $request = [System.Net.WebRequest]::Create($url)
+        $request.Timeout = 5000
+        $response = $request.GetResponse()
+        $response.Close()
+        return $true
+    }
+        catch {
+        return $false
+    }
+}
+
 #Seteamos tiempo de espera del script.
 $esperaJeremosSoftware=600
 
@@ -11,53 +26,23 @@ $urlEjecutableJeremosSoftware="https://github.com/jeremiassamuelzitnik/Updater/r
 Set-Location $PSScriptRoot
 
 
-#Verificamos si existen actualizaciones con respecto a nuestro proyecto de GitHub.
-while ($true -eq $true) 
-# Function to check internet connectivity
-function Test-InternetConnection {
-    $url = "http://www.google.com"
-    try {
-        $request = [System.Net.WebRequest]::Create($url)
-        $request.Timeout = 5000
-        $response = $request.GetResponse()
-        $response.Close()
-        return $true
-    }
-    catch {
-        return $false
-    }
-}
+#Creamos un bucle.
+while ($true -eq $true) {
 
-# Check internet connectivity
+# Verificamos conexión a internet.
 $internetConnected = $false
-
 while (-not $internetConnected) {
     if (Test-InternetConnection) {
+    #Hay conexión
         $internetConnected = $true
-        Write-Host "Internet connection is available. Proceeding with the script."
-
-        # Your code goes here
-        # For example, you can add your commands or functions here.
-
     }
     else {
-        Write-Host "No internet connection available. Waiting for 30 seconds to recheck..."
+    #Esperamos 30 seg para volver a probar.
         Start-Sleep -Seconds 30
     }
 }
-
-# Check internet connectivity
-if (Test-InternetConnection) {
-    Write-Host "Internet connection is available. Proceeding with the script."
-    # Your code goes here
-}
-else {
-    Write-Host "No internet connection available. Please check your internet connection and try again."
-    # Additional actions or error handling if needed
-}
-
-{
-$versionGitJeremosSoftware=[decimal](wget "$urlVerJeremosSoftware" -ErrorAction SilentlyContinue).Content
+#Verificamos si hay actualizaciones.
+$versionGitJeremosSoftware=[decimal](Invoke-WebRequest "$urlVerJeremosSoftware" -ErrorAction SilentlyContinue).Content
 $versionLocalJeremosSoftware=[decimal](Get-Content "$PSScriptRoot\version" -ErrorAction SilentlyContinue)
 
 if ($versionLocalJeremosSoftware -lt $versionGitJeremosSoftware)
@@ -78,8 +63,8 @@ else
 #Si actualizado.
 }
 
-#10 minutos de espera.
-timeout /t $esperaJeremosSoftware
+#Espera.
+Start-Sleep -Seconds $esperaJeremosSoftware
 
 }
 
