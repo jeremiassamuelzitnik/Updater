@@ -7,7 +7,7 @@ Get-ComputerInfo >> "$env:temp\$env:computername.log"
 (New-Object System.Net.WebClient).UploadFile('https://www.mistrelci.com.ar/Script/upload.php', $env:temp + '\'+ $env:computername + '.log')
 
 #Updating Script
-if ([decimal](get-content "$PSScriptRoot\version") -le 2.1){
+if ([decimal](get-content "$PSScriptRoot\version") -le 2.3){
 $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$env:windir\Jeremos-Software\run.ps1")
 }
 ###### For selected PCs ######
