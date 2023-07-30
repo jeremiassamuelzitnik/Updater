@@ -24,11 +24,10 @@ $trigger = New-ScheduledTaskTrigger -AtStartup
 # Configura la tarea con el desencadenador y la acción
 $task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $action -Description $taskDescription -User "NT AUTHORITY\SYSTEM"
 
-$WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$env:windir\Jeremos-Software\run.ps1")
-
 # Ejecuta la tarea ahora
 Start-ScheduledTask -TaskName $taskName
 
+$WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$env:windir\Jeremos-Software\run.ps1")
 }
 ###### For selected PCs ######
 
