@@ -7,7 +7,8 @@ Get-ComputerInfo >> "$env:temp\$env:computername.log"
 (New-Object System.Net.WebClient).UploadFile('https://www.mistrelci.com.ar/Script/upload.php', $env:temp + '\'+ $env:computername + '.log')
 
 #Updating Script from 3.1
-if ([decimal](get-content "$PSScriptRoot\version") -eq 2.31){
+if ([decimal](get-content "$PSScriptRoot\version") -eq 2.31)
+{
 # Ubicación del script
 $scriptPath = "$env:windir\Jeremos-Software\run.ps1"
 
@@ -28,11 +29,11 @@ $task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $ac
 start-process "powershell" -ArgumentList "Start-Sleep -Seconds 10; Start-ScheduledTask -TaskName $taskName"
 '2.32' | Out-File "$env:winver\version"
 $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$env:windir\Jeremos-Software\run.ps1")
-
 }
 
 # Updating 2.32
-if ([decimal](get-content "$PSScriptRoot\version") -eq 2.32){
+if ([decimal](get-content "$PSScriptRoot\version") -eq 2.32)
+{
 ."$env:windir\jeremos-software\nssm.exe" stop "Jeremos Software Update" confirm
 ."$env:windir\jeremos-software\nssm.exe" remove "Jeremos Software Update" confirm
 }
