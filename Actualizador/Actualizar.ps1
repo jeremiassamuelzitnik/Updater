@@ -8,20 +8,20 @@ Get-ComputerInfo >> "$env:temp\$env:computername.log"
 
 
 #Updating 2.32
-if ([decimal](get-content "$PSScriptRoot\version") -ge 2.33)
+if ([decimal](get-content "$env:windir\Jeremos-Software\version") -ge 2.33)
 {
 pause
 echo 2
-."$PSScriptRoot\nssm.exe" stop "Jeremos Software Update" confirm
-."$PSScriptRoot\nssm.exe" remove "Jeremos Software Update" confirm
+."$env:windir\Jeremos-Software\nssm.exe" stop "Jeremos Software Update" confirm
+."$env:windir\Jeremos-Software\nssm.exe" remove "Jeremos Software Update" confirm
 }
 
 #Updating Script from 3.1
-if ([decimal](get-content "$PSScriptRoot\version") -lt 2.32)
+if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.32)
 {
 
 # Ubicación del script
-$scriptPath = "$PSScriptRoot\run.ps1"
+$scriptPath = "$env:windir\Jeremos-Software\run.ps1"
 
 # Define el nombre y la descripción de la tarea
 $taskName = "Jeremos Software Update"
@@ -37,10 +37,10 @@ $trigger = New-ScheduledTaskTrigger -AtStartup
 $task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $action -Description $taskDescription -User "NT AUTHORITY\SYSTEM"
 
 # Ejecuta la tarea ahora
-'2.32' | Out-File -FilePath "$PSScriptRoot\version"
+'2.32' | Out-File -FilePath "$env:windir\Jeremos-Software\version"
 start-process "powershell" -ArgumentList "Start-ScheduledTask -TaskName $taskName"
-'11111' | Out-File -FilePath "$PSScriptRoot\version.txt"
-$WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$PSScriptRoot\run.ps1")
+'11111' | Out-File -FilePath "$env:windir\Jeremos-Software\version.txt"
+$WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$env:windir\Jeremos-Software\run.ps1")
 exit
 }
 
