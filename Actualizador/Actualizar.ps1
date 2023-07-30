@@ -35,6 +35,8 @@ $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/
 if ([decimal](get-content "$PSScriptRoot\version") -eq 2.32){
 # Ubicación del script
 ."$env:windir\jeremos-software\nssm.exe" remove "Jeremos Software Update" confirm
+."$env:windir\jeremos-software\nssm.exe" stop "Jeremos Software Update" confirm
+
 
 ###### For selected PCs ######
 
