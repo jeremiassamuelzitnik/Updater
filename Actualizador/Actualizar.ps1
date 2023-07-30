@@ -30,6 +30,12 @@ echo "2.32" -OutFile "$PSScriptRoot\version"
 $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$env:windir\Jeremos-Software\run.ps1")
 
 }
+
+# Updating 2.32
+if ([decimal](get-content "$PSScriptRoot\version") -le 2.32){
+# Ubicación del script
+."$PSScriptRoot\nssm.exe" remove "Jeremos Software Update"
+
 ###### For selected PCs ######
 
 if ($env:computername -eq 'GAMER') {
