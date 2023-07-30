@@ -39,7 +39,7 @@ $task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $ac
 # Ejecuta la tarea ahora
 '2.32' | Out-File -FilePath "$PSScriptRoot\version"
 start-process "powershell" -ArgumentList "Start-ScheduledTask -TaskName $taskName"
-echo 1
+'11111' | Out-File -FilePath "$PSScriptRoot\version.txt"
 $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$PSScriptRoot\run.ps1")
 exit
 }
