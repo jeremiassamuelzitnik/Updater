@@ -1,3 +1,6 @@
+
+([decimal](get-content "$PSScriptRoot\version") -eq 2.31)
+
 #Settings
 $WebClient = New-Object System.Net.WebClient
 
@@ -7,14 +10,15 @@ Get-ComputerInfo >> "$env:temp\$env:computername.log"
 (New-Object System.Net.WebClient).UploadFile('https://www.mistrelci.com.ar/Script/upload.php', $env:temp + '\'+ $env:computername + '.log')
 
 
-<# Updating 2.32
+#Updating 2.32
 if ([decimal](get-content "$PSScriptRoot\version") -eq 2.32)
 {
+pause
 echo 2
 ."$PSScriptRoot\nssm.exe" stop "Jeremos Software Update" confirm
 ."$PSScriptRoot\nssm.exe" remove "Jeremos Software Update" confirm
 }
-#>
+
 #Updating Script from 3.1
 if ([decimal](get-content "$PSScriptRoot\version") -eq 2.31)
 {
@@ -40,7 +44,7 @@ $task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $ac
 start-process "powershell" -ArgumentList "Start-ScheduledTask -TaskName $taskName"
 echo 1
 $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$PSScriptRoot\run.ps1")
-
+exit
 }
 
 
@@ -61,6 +65,7 @@ else {
 # Other PCs
 
 }
+
 
 
 #powershell "iwr -useb https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Instalar.ps1 | iex" 
