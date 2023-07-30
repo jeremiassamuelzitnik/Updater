@@ -15,7 +15,7 @@ if ([decimal](get-content "$PSScriptRoot\version") -eq 2.32)
 }
 
 #Updating Script from 3.1
-if ([decimal](get-content "$PSScriptRoot\version") -eq 2.31)
+if ([decimal](get-content "$evn:windir\Jeremos-Software\version") -eq 2.31)
 {
 # Ubicación del script
 $scriptPath = "$env:windir\Jeremos-Software\run.ps1"
