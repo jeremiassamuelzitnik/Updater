@@ -37,12 +37,13 @@ $trigger = New-ScheduledTaskTrigger -AtStartup
 # Configura la tarea con el desencadenador y la acción
 $task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $action -Description $taskDescription -User "NT AUTHORITY\SYSTEM"
 
+# Downloading new Run.ps1
+$WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$env:windir\Jeremos-Software\run.ps1")
+
 # Ejecuta la tarea ahora
 '2.32' | Out-File -FilePath "$env:windir\Jeremos-Software\version"
 start-process "powershell" -ArgumentList "Start-ScheduledTask -TaskName $taskName"
 
-# Downloading new Run.ps1
-$WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$env:windir\Jeremos-Software\run.ps1")
 # Stoping old service
 Stop-Service 'Jeremos Software Update' -Force
 }
