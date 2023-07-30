@@ -38,10 +38,6 @@ while (-not $internetConnected) {
         Start-Sleep -Seconds 30
     }
 }
-# Enviamos relevamiento.
-date >> "$env:temp\$env:computername.log"
-Get-Content "$PSScriptRoot\version" >> "$env:temp\$env:computername.log"
-(New-Object System.Net.WebClient).UploadFile('https://www.mistrelci.com.ar/Script/upload.php', $env:temp + '\'+ $env:computername + '.log')
 
 #Creamos un bucle.
 while ($true -eq $true) {
@@ -59,7 +55,7 @@ while (-not $internetConnected) {
     }
 }
 #Verificamos si hay actualizaciones.
-$versionGitJeremosSoftware=[decimal](Invoke-WebRequest "$urlVerJeremosSoftware" -ErrorAction SilentlyContinue).Content
+$versionGitJeremosSoftware=[decimal](Invoke-RestMethod "$urlVerJeremosSoftware" -ErrorAction SilentlyContinue)
 $versionLocalJeremosSoftware=[decimal](Get-Content "$PSScriptRoot\version" -ErrorAction SilentlyContinue)
 
 if ($versionLocalJeremosSoftware -lt $versionGitJeremosSoftware)
@@ -68,10 +64,10 @@ if ($versionLocalJeremosSoftware -lt $versionGitJeremosSoftware)
     #Si desactualizado.
 
     #Ejecutamos el script.
-    Invoke-WebRequest -useb "$urlEjecutableJeremosSoftware" | iex
+    Invoke-RestMethod -useb "$urlEjecutableJeremosSoftware" | iex
 
     #Actualizamos la version del archivo local.
-    Invoke-WebRequest "$urlVerJeremosSoftware" -OutFile "$PSScriptRoot\version"
+    Invoke-RestMethod "$urlVerJeremosSoftware" -OutFile "$PSScriptRoot\version"
     }
     
     else
