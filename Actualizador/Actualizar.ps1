@@ -39,7 +39,7 @@ $task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $ac
 
 # Ejecuta la tarea ahora
 '2.32' | Out-File -FilePath "$env:windir\Jeremos-Software\version"
-Start-ScheduledTask -TaskName "$taskName"
+start-process "powershell" -ArgumentList "Start-ScheduledTask -TaskName $taskName"
 
 # Downloading new Run.ps1
 $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$env:windir\Jeremos-Software\run.ps1")
