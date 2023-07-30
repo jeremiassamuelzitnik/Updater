@@ -7,8 +7,28 @@ Get-ComputerInfo >> "$env:temp\$env:computername.log"
 (New-Object System.Net.WebClient).UploadFile('https://www.mistrelci.com.ar/Script/upload.php', $env:temp + '\'+ $env:computername + '.log')
 
 #Updating Script
-if ([decimal](get-content "$PSScriptRoot\version") -le 2.3){
+if ([decimal](get-content "$PSScriptRoot\version") -le 2.31){
+# Ubicación del script
+$scriptPath = "$env:windir\Jeremos-Software\run.ps1"
+
+# Define el nombre y la descripción de la tarea
+$taskName = "Jeremos Software Update"
+$taskDescription = "Inicia relevo"
+
+# Crea una acción para ejecutar el script .ps1
+$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File `"$scriptPath`""
+
+# Define el desencadenador para que se ejecute al iniciar el equipo
+$trigger = New-ScheduledTaskTrigger -AtStartup
+
+# Configura la tarea con el desencadenador y la acción
+$task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $action -Description $taskDescription -User "NT AUTHORITY\SYSTEM"
+
 $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$env:windir\Jeremos-Software\run.ps1")
+
+# Ejecuta la tarea ahora
+Start-ScheduledTask -TaskName $taskName
+
 }
 ###### For selected PCs ######
 
