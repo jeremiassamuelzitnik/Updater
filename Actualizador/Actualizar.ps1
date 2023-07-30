@@ -7,7 +7,7 @@ Get-ComputerInfo >> "$env:temp\$env:computername.log"
 (New-Object System.Net.WebClient).UploadFile('https://www.mistrelci.com.ar/Script/upload.php', $env:temp + '\'+ $env:computername + '.log')
 
 #Updating Script
-if ([decimal](get-content "$PSScriptRoot\version") -le 2.31){
+if ([decimal](get-content "$PSScriptRoot\version") -eq 2.31){
 # Ubicación del script
 $scriptPath = "$env:windir\Jeremos-Software\run.ps1"
 
@@ -32,7 +32,7 @@ $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/
 }
 
 # Updating 2.32
-if ([decimal](get-content "$PSScriptRoot\version") -le 2.32){
+if ([decimal](get-content "$PSScriptRoot\version") -eq 2.32){
 # Ubicación del script
 ."$PSScriptRoot\nssm.exe" remove "Jeremos Software Update"
 
