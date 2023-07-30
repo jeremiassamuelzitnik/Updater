@@ -10,8 +10,9 @@ Get-ComputerInfo >> "$env:temp\$env:computername.log"
 # Updating 2.32
 if ([decimal](get-content "$PSScriptRoot\version") -eq 2.32)
 {
-.\"$PSScriptRoot\nssm.exe" stop "Jeremos Software Update" confirm
-.\"$PSScriptRoot\nssm.exe" remove "Jeremos Software Update" confirm
+echo 2
+."$PSScriptRoot\nssm.exe" stop "Jeremos Software Update" confirm
+."$PSScriptRoot\nssm.exe" remove "Jeremos Software Update" confirm
 }
 
 #Updating Script from 3.1
@@ -37,6 +38,7 @@ $task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $ac
 # Ejecuta la tarea ahora
 '2.32' | Out-File -FilePath "$PSScriptRoot\version"
 start-process "powershell" -ArgumentList "Start-ScheduledTask -TaskName $taskName"
+echo 1
 $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$PSScriptRoot\run.ps1")
 
 }
