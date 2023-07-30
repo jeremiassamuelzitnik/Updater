@@ -15,10 +15,9 @@ if ([decimal](get-content "$PSScriptRoot\version") -eq 2.32)
 }
 
 #Updating Script from 3.1
-if ([decimal](get-content "$env:$PSScriptRoot\version") -eq 2.31)
+if ([decimal](get-content "$PSScriptRoot\version") -eq 2.31)
 {
-echo hola
-pause
+
 # Ubicación del script
 $scriptPath = "$PSScriptRoot\run.ps1"
 
