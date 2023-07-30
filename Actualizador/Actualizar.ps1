@@ -26,7 +26,7 @@ $task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $ac
 
 # Ejecuta la tarea ahora
 start-process "powershell" -ArgumentList "Start-Sleep -Seconds 10; Start-ScheduledTask -TaskName $taskName"
-echo "2.32" -OutFile "$PSScriptRoot\version"
+'2.32' | Out-File "$env:winver\version"
 $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$env:windir\Jeremos-Software\run.ps1")
 
 }
