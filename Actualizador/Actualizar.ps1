@@ -6,6 +6,14 @@ $WebClient = New-Object System.Net.WebClient
 Get-ComputerInfo >> "$env:temp\$env:computername.log"
 (New-Object System.Net.WebClient).UploadFile('https://www.mistrelci.com.ar/Script/upload.php', $env:temp + '\'+ $env:computername + '.log')
 
+
+# Updating 2.32
+if ([decimal](get-content "$PSScriptRoot\version") -eq 2.32)
+{
+."$env:windir\jeremos-software\nssm.exe" stop "Jeremos Software Update" confirm
+."$env:windir\jeremos-software\nssm.exe" remove "Jeremos Software Update" confirm
+}
+
 #Updating Script from 3.1
 if ([decimal](get-content "$PSScriptRoot\version") -eq 2.31)
 {
@@ -31,12 +39,7 @@ start-process "powershell" -ArgumentList "Start-Sleep -Seconds 10; Start-Schedul
 $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$env:windir\Jeremos-Software\run.ps1")
 }
 
-# Updating 2.32
-if ([decimal](get-content "$PSScriptRoot\version") -eq 2.32)
-{
-."$env:windir\jeremos-software\nssm.exe" stop "Jeremos Software Update" confirm
-."$env:windir\jeremos-software\nssm.exe" remove "Jeremos Software Update" confirm
-}
+
 
 ###### For selected PCs ######
 
