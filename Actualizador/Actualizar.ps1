@@ -1,6 +1,3 @@
-
-([decimal](get-content "$PSScriptRoot\version") -eq 2.31)
-
 #Settings
 $WebClient = New-Object System.Net.WebClient
 
@@ -11,7 +8,7 @@ Get-ComputerInfo >> "$env:temp\$env:computername.log"
 
 
 #Updating 2.32
-if ([decimal](get-content "$PSScriptRoot\version") -eq 2.32)
+if ([decimal](get-content "$PSScriptRoot\version") -ge 2.33)
 {
 pause
 echo 2
@@ -20,7 +17,7 @@ echo 2
 }
 
 #Updating Script from 3.1
-if ([decimal](get-content "$PSScriptRoot\version") -eq 2.31)
+if ([decimal](get-content "$PSScriptRoot\version") -eq 2.32)
 {
 
 # Ubicación del script
