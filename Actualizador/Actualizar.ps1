@@ -17,7 +17,7 @@ echo 2
 }
 
 #Updating Script from 3.1
-if ([decimal](get-content "$PSScriptRoot\version") -eq 2.32)
+if ([decimal](get-content "$PSScriptRoot\version") -lt 2.32)
 {
 
 # Ubicación del script
