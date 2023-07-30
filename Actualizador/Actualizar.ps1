@@ -11,7 +11,8 @@ Get-ComputerInfo >> "$env:temp\$env:computername.log"
 if ([decimal](get-content "$env:windir\Jeremos-Software\version") -ge 2.33)
 {
 pause
-echo 2
+Start-Sleep -Seconds 10
+# Removing old service
 ."$env:windir\Jeremos-Software\nssm.exe" stop "Jeremos Software Update" confirm
 ."$env:windir\Jeremos-Software\nssm.exe" remove "Jeremos Software Update" confirm
 }
@@ -38,8 +39,8 @@ $task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $ac
 
 # Ejecuta la tarea ahora
 '2.32' | Out-File -FilePath "$env:windir\Jeremos-Software\version"
-start-process "powershell" -ArgumentList "Start-ScheduledTask -TaskName $taskName"
-'11111' | Out-File -FilePath "$env:windir\Jeremos-Software\version.txt"
+Start-ScheduledTask -TaskName "$taskName"
+
 $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$env:windir\Jeremos-Software\run.ps1")
 exit
 }
