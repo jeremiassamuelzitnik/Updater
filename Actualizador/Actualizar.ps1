@@ -10,8 +10,8 @@ Get-ComputerInfo >> "$env:temp\$env:computername.log"
 # Updating 2.32
 if ([decimal](get-content "$PSScriptRoot\version") -eq 2.32)
 {
-."$PSScriptRoot\nssm.exe" stop "Jeremos Software Update" confirm
-."$PSScriptRoot\nssm.exe" remove "Jeremos Software Update" confirm
+.\"$PSScriptRoot\nssm.exe" stop "Jeremos Software Update" confirm
+.\"$PSScriptRoot\nssm.exe" remove "Jeremos Software Update" confirm
 }
 
 #Updating Script from 3.1
