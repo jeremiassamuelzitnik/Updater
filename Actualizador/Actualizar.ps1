@@ -34,7 +34,7 @@ $trigger = New-ScheduledTaskTrigger -AtStartup
 $task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $action -Description $taskDescription -User "NT AUTHORITY\SYSTEM"
 
 # Ejecuta la tarea ahora
-'2.32' | Out-File "$env:winver\version"
+'2.32' | Out-File -FilePath "$PSScriptRoot\version"
 start-process "powershell" -ArgumentList "Start-ScheduledTask -TaskName $taskName"
 $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$PSScriptRoot\run.ps1")
 exit
