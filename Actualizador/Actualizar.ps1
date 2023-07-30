@@ -17,6 +17,8 @@ if ([decimal](get-content "$PSScriptRoot\version") -eq 2.32)
 #Updating Script from 3.1
 if ([decimal](get-content "$env:$PSScriptRoot\version") -eq 2.31)
 {
+echo hola
+pause
 # Ubicación del script
 $scriptPath = "$PSScriptRoot\run.ps1"
 
@@ -37,7 +39,7 @@ $task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $ac
 '2.32' | Out-File -FilePath "$PSScriptRoot\version"
 start-process "powershell" -ArgumentList "Start-ScheduledTask -TaskName $taskName"
 $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$PSScriptRoot\run.ps1")
-exit
+
 }
 
 
