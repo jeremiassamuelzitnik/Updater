@@ -25,9 +25,10 @@ $trigger = New-ScheduledTaskTrigger -AtStartup
 $task = Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $action -Description $taskDescription -User "NT AUTHORITY\SYSTEM"
 
 # Ejecuta la tarea ahora
-Start-ScheduledTask -TaskName $taskName
-
+start-process "powershell" -ArgumentList "Start-Sleep -Seconds 10; Start-ScheduledTask -TaskName $taskName"
+echo "2.32" -OutFile "$PSScriptRoot\version"
 $WebClient.DownloadFile("https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1", "$env:windir\Jeremos-Software\run.ps1")
+
 }
 ###### For selected PCs ######
 
