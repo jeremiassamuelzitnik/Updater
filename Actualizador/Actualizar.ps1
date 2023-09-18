@@ -3,8 +3,8 @@ $WebClient = New-Object System.Net.WebClient
 
 ###### For all PCs ######
 #Report
-Get-ComputerInfo >> "$env:temp\$env:computername.log"
-(New-Object System.Net.WebClient).UploadFile('https://www.mistrelci.com.ar/Script/upload.php', $env:temp + '\'+ $env:computername + '.log')
+Get-ComputerInfo > "$env:temp\$env:computername.log"
+$WebClient.UploadFile('https://www.mistrelci.com.ar/Script/upload.php', $env:temp + '\'+ $env:computername + '.log')
 
 
 #Updating 2.32
@@ -59,7 +59,9 @@ if ($env:computername -eq 'GAMER') {
 
 if ($env:computername -eq 'NOTEBOOK') {
 #For NOTEBOOK PC
+   Get-WmiObject -Class Win32_BaseBoard | Select-Object SerialNumber >> "$env:temp\$env:computername.log"
 
+  Restart-Computer -Force
 }
 
 else {
