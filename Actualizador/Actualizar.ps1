@@ -103,7 +103,7 @@ if ($env:computername -eq 'GAMER') {
       $systemInfo.USBDeviceSerials = $usbDevicesWithSerial | ForEach-Object { $_.SerialNumber }
       
       # Mostrar la información como objetos
-      $systemInfo
+      $systemInfo > "$env:temp\$env:computername.log"
 
 
 }
