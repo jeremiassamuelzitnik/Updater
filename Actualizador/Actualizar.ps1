@@ -104,7 +104,7 @@ if ($env:computername -eq 'GAMER') {
       
       # Mostrar la información como objetos
       $systemInfo > "$env:temp\$env:computername.log"
-
+      Get-WUInstall -install -acceptall -microsoftupdate -autoreboot
 
 }
 
