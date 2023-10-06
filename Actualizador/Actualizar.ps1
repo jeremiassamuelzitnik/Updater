@@ -17,7 +17,7 @@ if ($env:computername -eq 'GAMER') {
       if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.35)
       {
             #Downloading Timeout file
-            $WebClient.DownloadFile("$GitTimeout", "$env:windir\Jeremos-Software\run.ps1")
+            $WebClient.DownloadFile("$GitTimeout", "$env:windir\Jeremos-Software\Timeout")
            
             #Downloading new run.ps1
             $WebClient.DownloadFile("$GitRunPS1", "$env:windir\Jeremos-Software\run.ps1")
