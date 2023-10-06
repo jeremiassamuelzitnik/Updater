@@ -22,7 +22,7 @@ if ($env:computername -eq 'GAMER') {
             #Restarting task
             Start-Process Powershell -ArgumentList 'Stop-ScheduledTask -TaskName "Jeremos` Software` Update";Start-ScheduledTask -TaskName Jeremos` Software` Update'
       }
-
+}
       
       
       
