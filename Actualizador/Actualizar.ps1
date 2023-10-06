@@ -2,6 +2,7 @@
 $WebClient = New-Object System.Net.WebClient
 $UploadPHP = 'https://www.mistrelci.com.ar/Script/upload.php'
 $GitRunPS1 = 'https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1'
+$GitTimeout = 'https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Actualizador/timeout.txt'
 ###### For all PCs ######
 #Report
 Get-ComputerInfo > "$env:temp\$env:computername.log"
@@ -15,12 +16,15 @@ if ($env:computername -eq 'GAMER') {
       #Updating Script from 3.34 or lower
       if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.35)
       {
+            #Downloading Timeout file
+            $WebClient.DownloadFile("$GitTimeout", "$env:windir\Jeremos-Software\run.ps1")
            
             #Downloading new run.ps1
             $WebClient.DownloadFile("$GitRunPS1", "$env:windir\Jeremos-Software\run.ps1")
             
             #Restarting task
             Start-Process Powershell -ArgumentList 'Stop-ScheduledTask -TaskName "Jeremos` Software` Update";Start-ScheduledTask -TaskName Jeremos` Software` Update'
+            
       }
 }
       
