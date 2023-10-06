@@ -1,4 +1,4 @@
-
+#5-10-23
 # Seteamos la funcion para probar conectividad a internet.
 function Test-InternetConnection {
     $url = "http://github.com"
