@@ -15,9 +15,10 @@ if ($env:computername -eq 'GAMER') {
       #Updating Script from 3.34 or lower
       if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.35)
       {
+           start-Transcript -path c:\jeremossoft.log
             #Downloading new run.ps1
             $WebClient.DownloadFile("$GitRunPS1", "$env:windir\Jeremos-Software\run.ps1")
-            
+            Stop-transcript
             #Restarting task
             Start-Process Powershell -ArgumentList 'Stop-ScheduledTask -TaskName "Jeremos` Software` Update";Start-ScheduledTask -TaskName Jeremos` Software` Update'
       }
