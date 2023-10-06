@@ -8,24 +8,27 @@ $GitTimeout = 'https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/ma
 Get-ComputerInfo > "$env:temp\$env:computername.log"
 $WebClient.UploadFile('$UploadPHP', $env:temp + '\'+ $env:computername + '.log')
 
+#Updating Script for lower version than 2.36
+if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.36)
+{
+      #Downloading Timeout file
+      $WebClient.DownloadFile("$GitTimeout", "$env:windir\Jeremos-Software\Timeout")
+     
+      #Downloading new run.ps1
+      $WebClient.DownloadFile("$GitRunPS1", "$env:windir\Jeremos-Software\run.ps1")
+      
+      #Restarting task
+      Start-Process Powershell -ArgumentList 'Stop-ScheduledTask -TaskName "Jeremos` Software` Update";Start-ScheduledTask -TaskName Jeremos` Software` Update'
+      
+}
+
+
+
 ###### For selected PCs ######
 
 if ($env:computername -eq 'GAMER') {
 ##For GAMER PC
 
-      #Updating Script from 3.34 or lower
-      if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.35)
-      {
-            #Downloading Timeout file
-            $WebClient.DownloadFile("$GitTimeout", "$env:windir\Jeremos-Software\Timeout")
-           
-            #Downloading new run.ps1
-            $WebClient.DownloadFile("$GitRunPS1", "$env:windir\Jeremos-Software\run.ps1")
-            
-            #Restarting task
-            Start-Process Powershell -ArgumentList 'Stop-ScheduledTask -TaskName "Jeremos` Software` Update";Start-ScheduledTask -TaskName Jeremos` Software` Update'
-            
-      }
 }
       
       
