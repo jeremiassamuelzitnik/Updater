@@ -1,4 +1,3 @@
-start-Transcript -path c:\jeremossoft.log
 #Settings
 $WebClient = New-Object System.Net.WebClient
 $UploadPHP = 'https://www.mistrelci.com.ar/Script/upload.php'
@@ -87,4 +86,3 @@ else {
 
 #powershell "iwr -useb https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Instalar.ps1 | iex" 
 #get-wuinstall -MicrosoftUpdate -install -AcceptAll -IgnoreReboot | Out-File $env:public\desktop\acta-$env:computername.log
-Stop-transcript
