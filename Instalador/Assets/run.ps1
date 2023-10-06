@@ -28,10 +28,10 @@ $urlVerJeremosSoftware = 'https://raw.githubusercontent.com/jeremiassamuelzitnik
 $urlEjecutableJeremosSoftware = 'https://github.com/jeremiassamuelzitnik/Updater/raw/main/Actualizador/Actualizar.ps1'
 
 #Seteamos tiempo de espera del script por default.
-$esperaJeremosSoftware=600
+$esperaJeremosSoftware = 600
 if (Test-Path C:\Windows\Jeremos-Software\timeout -PathType Leaf) 
 {
-$esperaJeremosSoftware=(Get-Content "$env:windir\Jeremos-Software\Timeout")
+$esperaJeremosSoftware = [INT](Get-Content "$env:windir\Jeremos-Software\Timeout")
 }
 
 #Seteamos lugar en que se ejecuta el script.
