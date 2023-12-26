@@ -107,6 +107,5 @@ else {
 #Send if flag is true
 if ($sendDefaultLog){$WebClient.UploadFile($UploadPHP, $defaultLog)}
 
-
 #powershell "iwr -useb https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Instalar.ps1 | iex" 
 #get-wuinstall -MicrosoftUpdate -install -AcceptAll -IgnoreReboot | Out-File $env:public\desktop\acta-$env:computername.log
