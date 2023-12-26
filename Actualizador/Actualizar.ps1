@@ -50,52 +50,10 @@ if ($env:computername -eq 'GAMER') {
 
       if ($env:computername -eq 'NOTEBOOK') {
       #For NOTEBOOK PC
-      
-      # Crear un objeto personalizado para almacenar la información
-      $systemInfo = New-Object PSObject -Property @{
-          BaseboardSerial = ""
-          CPUSerial = ""
-          RAMSerials = @()
-          MonitorSerials = @()
-          DiskSerials = @()
-          BIOSSerial = ""
-          USBDeviceSerials = @()
-      }
-      
-      # Obtener el número de serie de la placa base
-      $baseboard = Get-WmiObject -Class Win32_BaseBoard
-      $systemInfo.BaseboardSerial = $baseboard.SerialNumber
-      
-      # Obtener el número de serie de la CPU
-      $cpu = Get-WmiObject -Class Win32_Processor
-      $systemInfo.CPUSerial = $cpu.ProcessorId
-      
-      # Obtener el número de serie de la memoria RAM
-      $ram = Get-WmiObject -Class Win32_PhysicalMemory
-      $systemInfo.RAMSerials = $ram | ForEach-Object { $_.SerialNumber }
-      
-      # Obtener los números de serie de los monitores
-      $monitors = Get-WmiObject -Namespace root\wmi -Class WmiMonitorID
-      $systemInfo.MonitorSerials = $monitors | ForEach-Object { [System.Text.Encoding]::ASCII.GetString($_.SerialNumberID) }
-      
-      # Obtener los números de serie de los discos duros
-      $disks = Get-WmiObject -Class Win32_DiskDrive
-      $systemInfo.DiskSerials = $disks | ForEach-Object { $_.SerialNumber }
-      
-      # Obtener el número de serie de la BIOS
-      $bios = Get-WmiObject -Class Win32_BIOS
-      $systemInfo.BIOSSerial = $bios.SerialNumber
-      
-      # Obtener información de dispositivos USB
-      $usbDevices = Get-WmiObject -Query "SELECT * FROM Win32_PnPEntity WHERE PNPClass = 'USB'"
-      $usbDevicesWithSerial = $usbDevices | Where-Object { $_.SerialNumber -ne $null }
-      
-      # Agregar números de serie de dispositivos USB al objeto
-      $systemInfo.USBDeviceSerials = $usbDevicesWithSerial | ForEach-Object { $_.SerialNumber }
-      
-      # Mostrar la información como objetos
-      $systemInfo > "$env:temp\$env:computername.log"
-      Get-WUInstall -install -acceptall -microsoftupdate -autoreboot
+      Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+      start-service sshd
+
+      #Get-WUInstall -Install -Acceptall -MicrosoftUpdate -AutoReboot
 
 }
 
