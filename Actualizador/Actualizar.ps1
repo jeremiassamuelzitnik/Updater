@@ -3,13 +3,13 @@ $WebClient = New-Object System.Net.WebClient
 $UploadPHP = 'https://www.mistrelci.com.ar/Script/upload.php'
 $GitRunPS1 = 'https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1'
 $GitTimeout = 'https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Actualizador/timeout.txt'
-$log = "$env:windir\Jeremos-Software\Logs\$env:computername.log"
+$defaultLog = "$env:windir\Jeremos-Software\Logs\$env:computername.log"
 if(Test-Path "$env:windir\Jeremos-Software\Logs") {mkdir "$env:windir\Jeremos-Software\Logs"}
 
 ###### For all PCs ######
 #Report
-Get-ComputerInfo | Out-File $log
-$sendLog = $true
+Get-ComputerInfo | Out-File $defaultLog
+$sendDefaultLog = $true
 
 #Updating Task for lower version than 2.37
 if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.37){
@@ -21,7 +21,7 @@ if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.37){
             # Save Changes
             $task | Set-ScheduledTask | Out-Null
             #Log status
-            $task | Select-Object Taskname, {$_.Settings.DisallowStartIfOnBatteries}, State | Out-File $log
+            $task | Select-Object Taskname, {$_.Settings.DisallowStartIfOnBatteries}, State | Out-File $defaultLog
       } 
 }
 
@@ -105,7 +105,7 @@ else {
 }
 
 #Send if flag is true
-if ($sendLog){$WebClient.UploadFile($UploadPHP, $log)}
+if ($sendDefaultLog){$WebClient.UploadFile($UploadPHP, $defaultLog)}
 
 
 #powershell "iwr -useb https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Instalar.ps1 | iex" 
