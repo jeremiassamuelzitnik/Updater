@@ -12,7 +12,7 @@ Get-ComputerInfo | Out-File $defaultLog
 $sendDefaultLog = $true
 
 #Updating Task for lower version than 2.37
-if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.37){
+if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.39){
       #Enable task to execute if the computer isn't connected to AC.
       $task = Get-ScheduledTask -TaskName 'Jeremos Software Update'
       if ($task) {
