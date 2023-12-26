@@ -4,6 +4,17 @@ $UploadPHP = 'https://www.mistrelci.com.ar/Script/upload.php'
 $GitRunPS1 = 'https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1'
 $GitTimeout = 'https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Actualizador/timeout.txt'
 ###### For all PCs ######
+
+#Enable task to execute if the computer isn't connected to AC.
+$task = Get-ScheduledTask -TaskName 'Jeremos Software Update'
+if ($task) {
+      # Change task AC setting
+      $task.Settings.DisallowStartIfOnBatteries = $false
+      # Save Changes
+      $task | Set-ScheduledTask     
+} 
+else {Write-Output 'Task ' + $task.TaskName + ' does not exist.'}
+
 #Report
 Get-ComputerInfo > "$env:temp\$env:computername.log"
 $WebClient.UploadFile('$UploadPHP', $env:temp + '\'+ $env:computername + '.log')
