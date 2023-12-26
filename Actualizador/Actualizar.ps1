@@ -3,21 +3,27 @@ $WebClient = New-Object System.Net.WebClient
 $UploadPHP = 'https://www.mistrelci.com.ar/Script/upload.php'
 $GitRunPS1 = 'https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1'
 $GitTimeout = 'https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Actualizador/timeout.txt'
+$log = "$env:windir\Jeremos-Software\Logs\$env:computername.log"
+if(Test-Path "$env:windir\Jeremos-Software\Logs") {mkdir "$env:windir\Jeremos-Software\Logs"}
+
 ###### For all PCs ######
-
-#Enable task to execute if the computer isn't connected to AC.
-$task = Get-ScheduledTask -TaskName 'Jeremos Software Update'
-if ($task) {
-      # Change task AC setting
-      $task.Settings.DisallowStartIfOnBatteries = $false
-      # Save Changes
-      $task | Set-ScheduledTask     
-} 
-else {Write-Output 'Task ' + $task.TaskName + ' does not exist.'}
-
 #Report
-Get-ComputerInfo > "$env:temp\$env:computername.log"
-$WebClient.UploadFile('$UploadPHP', $env:temp + '\'+ $env:computername + '.log')
+Get-ComputerInfo | Out-File $log
+$WebClient.UploadFile('$UploadPHP', $log)
+
+#Updating Task for lower version than 2.37
+if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.37){
+      #Enable task to execute if the computer isn't connected to AC.
+      $task = Get-ScheduledTask -TaskName 'Jeremos Software Update'
+      if ($task) {
+            # Change task AC setting
+            $task.Settings.DisallowStartIfOnBatteries = $false
+            # Save Changes
+            $task | Set-ScheduledTask | Out-Null
+            #Log status
+            $task | Select-Object Taskname, {$_.Settings.DisallowStartIfOnBatteries}, State | Out-File $log
+      } 
+}
 
 #Updating Script for lower version than 2.36
 if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.36)
@@ -35,6 +41,9 @@ if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.36)
 
 
 
+
+
+
 ###### For selected PCs ######
 
 if ($env:computername -eq 'GAMER') {
@@ -42,8 +51,7 @@ if ($env:computername -eq 'GAMER') {
 
 }
       
-      
-      
+
       if ($env:computername -eq 'NOTEBOOK') {
       #For NOTEBOOK PC
       
