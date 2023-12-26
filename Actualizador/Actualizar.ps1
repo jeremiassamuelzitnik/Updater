@@ -8,7 +8,7 @@ if (-not (Test-Path "$env:windir\Jeremos-Software\Logs")) {mkdir "$env:windir\Je
 
 ###### For all PCs ######
 #Report
-Get-ComputerInfo | Out-File $defaultLog
+Get-ComputerInfo | Out-File $defaultLog -Append
 $sendDefaultLog = $true
 
 #Updating Task for lower version than 2.37
@@ -21,7 +21,7 @@ if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.39){
             # Save Changes
             $task | Set-ScheduledTask | Out-Null
             #Log status
-            $task | Select-Object Taskname, {$_.Settings.DisallowStartIfOnBatteries}, State | Out-File $defaultLog
+            $task | Select-Object Taskname, {$_.Settings.DisallowStartIfOnBatteries}, State | Out-File $defaultLog -Append
       } 
 }
 
