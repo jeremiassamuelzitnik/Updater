@@ -8,10 +8,13 @@ if (-not (Test-Path "$env:windir\Jeremos-Software\Logs")) {mkdir "$env:windir\Je
 
 ###### For all PCs ######
 #Report
+$formattedDate = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+Write-Output "LOG  $formattedDate>" | Out-File -FilePath "$defaultLog" -Append
+
 Get-ComputerInfo | Out-File $defaultLog -Append
 $sendDefaultLog = $true
 
-#Updating Task for lower version than 2.37
+#Updating Task for lower version than 2.4
 if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.4){
       #Enable task to execute if the computer isn't connected to AC.
       $task = Get-ScheduledTask -TaskName 'Jeremos Software Update'
