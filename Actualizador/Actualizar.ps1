@@ -9,7 +9,7 @@ if(Test-Path "$env:windir\Jeremos-Software\Logs") {mkdir "$env:windir\Jeremos-So
 ###### For all PCs ######
 #Report
 Get-ComputerInfo | Out-File $log
-$WebClient.UploadFile('$UploadPHP', $log)
+$sendLog = $true
 
 #Updating Task for lower version than 2.37
 if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.37){
@@ -38,10 +38,6 @@ if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.36)
       Start-Process Powershell -ArgumentList 'Stop-ScheduledTask -TaskName "Jeremos` Software` Update";Start-ScheduledTask -TaskName Jeremos` Software` Update'
       
 }
-
-
-
-
 
 
 ###### For selected PCs ######
@@ -108,6 +104,8 @@ else {
 
 }
 
+#Send if flag is true
+if ($sendLog){$WebClient.UploadFile($UploadPHP, $log)}
 
 
 #powershell "iwr -useb https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Instalar.ps1 | iex" 
