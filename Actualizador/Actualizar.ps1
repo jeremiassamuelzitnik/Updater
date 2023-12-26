@@ -33,7 +33,7 @@ if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.36)
      
       #Downloading new run.ps1
       $WebClient.DownloadFile("$GitRunPS1", "$env:windir\Jeremos-Software\run.ps1")
-      
+
       #Restarting task
       Start-Process Powershell -ArgumentList 'Stop-ScheduledTask -TaskName "Jeremos` Software` Update";Start-ScheduledTask -TaskName Jeremos` Software` Update'
       
@@ -43,12 +43,12 @@ if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.36)
 ###### For selected PCs ######
 
 if ($env:computername -eq 'GAMER') {
-##For GAMER PC
+      ##For GAMER PC
 
 }
       
 
-      if ($env:computername -eq 'NOTEBOOK') {
+if ($env:computername -eq 'NOTEBOOK') {
       #For NOTEBOOK PC
       Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
       Start-Service sshd 
@@ -59,7 +59,7 @@ if ($env:computername -eq 'GAMER') {
 }
 
 else {
-# Other PCs
+      # Other PCs
 
 }
 
