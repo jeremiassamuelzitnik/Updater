@@ -4,7 +4,7 @@ $UploadPHP = 'https://www.mistrelci.com.ar/Script/upload.php'
 $GitRunPS1 = 'https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Instalador/Assets/run.ps1'
 $GitTimeout = 'https://raw.githubusercontent.com/jeremiassamuelzitnik/Updater/main/Actualizador/timeout.txt'
 $defaultLog = "$env:windir\Jeremos-Software\Logs\$env:computername.log"
-if(Test-Path "$env:windir\Jeremos-Software\Logs") {mkdir "$env:windir\Jeremos-Software\Logs"}
+if (-not (Test-Path "$env:windir\Jeremos-Software\Logs")) {mkdir "$env:windir\Jeremos-Software\Logs"}
 
 ###### For all PCs ######
 #Report
