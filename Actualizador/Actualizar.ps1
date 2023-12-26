@@ -51,8 +51,8 @@ if ($env:computername -eq 'GAMER') {
       if ($env:computername -eq 'NOTEBOOK') {
       #For NOTEBOOK PC
       Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
-      Start-Service sshd -force
-      Start-Service ssh-agent -force
+      Start-Service sshd 
+      Start-Service ssh-agent 
 
       #Get-WUInstall -Install -Acceptall -MicrosoftUpdate -AutoReboot
 
