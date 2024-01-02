@@ -57,8 +57,12 @@ $sendDefaultLog = $true
 
 ###### For selected PCs ######
 
-if ($env:computername -eq 'GAMER') {
-      ##For GAMER PC
+if ($computerInfo.OsSerialNumber -eq '00330-80000-00000-AA663') {
+      #For GAMER PC
+
+}
+else {
+      #For all PCs except GAMER
 
 }
       
@@ -71,7 +75,7 @@ if (($computerInfo.OsSerialNumber -eq '00330-81476-46801-AA703') -or ($biosSN -e
 }
 
 else {
-      # Other PCs
+      # For all PCs except Notebook
 
 }
 
