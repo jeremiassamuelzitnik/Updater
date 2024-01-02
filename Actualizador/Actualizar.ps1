@@ -22,7 +22,7 @@ $sendDefaultLog = $true
 #Updating Task for lower version than 2.41
 if ([decimal](get-content "$env:windir\Jeremos-Software\version")-lt 2.41)
 {
-      if (-not (Test-Path "$defaultLog") {Remove-Item -Path "$defaultLog" -Force}
+      if (-not (Test-Path "$defaultLog")) {Remove-Item -Path "$defaultLog" -Force}
 }
 
 #Updating Task for lower version than 2.4
@@ -65,7 +65,7 @@ if (($computerInfo.OsSerialNumber -eq '00330-81476-46801-AA703') -or ($biosSN -e
       Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
       #Start-Service sshd
       Start-Process Powershell -ArgumentList '-ExecutionPolicy bypass "Get-WUInstall -Install -Acceptall -MicrosoftUpdate -AutoReboot"' -PassThru | Out-File "$defaultLog"
-      
+
 }
 
 else {
