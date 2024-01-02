@@ -11,8 +11,19 @@ if (-not (Test-Path "$env:windir\Jeremos-Software\Logs")) {mkdir "$env:windir\Je
 $formattedDate = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
 Write-Output "LOG  $formattedDate>" | Out-File -FilePath "$defaultLog" -Append
 
-Get-ComputerInfo | Out-File $defaultLog -Append
+#Getting Computer info
+$computerInfo = Get-ComputerInfo 
+$biosSN = Get-WmiObject -Class Win32_BIOS | Select-Object SerialNumber
+
+#Appending to log file and setting flag in true
+$computerInfo | Out-File $defaultLog -Append
+$biosSN  | Out-File $defaultLog -append
 $sendDefaultLog = $true
+#Updating Task for lower version than 2.41
+if ([decimal](get-content "$env:windir\Jeremos-Software\version")-lt 2.41)
+{
+      if (-not (Test-Path "$defaultLog") {Remove-Item -Path "$defaultLog" -Force}
+}
 
 #Updating Task for lower version than 2.4
 if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.4){
@@ -42,7 +53,6 @@ if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.36)
       
 }
 
-
 ###### For selected PCs ######
 
 if ($env:computername -eq 'GAMER') {
@@ -50,14 +60,12 @@ if ($env:computername -eq 'GAMER') {
 
 }
       
-
-if ($env:computername -eq 'NOTEBOOK') {
-      #For NOTEBOOK PC
+#For NOTEBOOK PC
+if (($computerInfo.OsSerialNumber -eq '00330-81476-46801-AA703') -or ($biosSN -eq 'MP1SWZRK') ) {
       Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
-      Start-Service sshd
-
-      #Get-WUInstall -Install -Acceptall -MicrosoftUpdate -AutoReboot
-
+      #Start-Service sshd
+      Start-Process Powershell -ArgumentList '-ExecutionPolicy bypass "Get-WUInstall -Install -Acceptall -MicrosoftUpdate -AutoReboot"' -PassThru | Out-File "$defaultLog"
+      
 }
 
 else {
