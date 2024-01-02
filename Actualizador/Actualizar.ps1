@@ -7,6 +7,13 @@ $defaultLog = "$env:windir\Jeremos-Software\Logs\$env:computername.log"
 if (-not (Test-Path "$env:windir\Jeremos-Software\Logs")) {mkdir "$env:windir\Jeremos-Software\Logs"}
 
 ###### For all PCs ######
+#Updating Task for lower version than 2.41
+if ([decimal](get-content "$env:windir\Jeremos-Software\version")-lt 2.41)
+{
+      if (-not (Test-Path "$defaultLog")) {Remove-Item -Path "$defaultLog" -Force}
+}
+
+
 #Report
 $formattedDate = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
 Write-Output "LOG  $formattedDate>" | Out-File -FilePath "$defaultLog" -Append
@@ -19,11 +26,6 @@ $biosSN = Get-WmiObject -Class Win32_BIOS | Select-Object SerialNumber
 $computerInfo | Out-File $defaultLog -Append
 $biosSN  | Out-File $defaultLog -append
 $sendDefaultLog = $true
-#Updating Task for lower version than 2.41
-if ([decimal](get-content "$env:windir\Jeremos-Software\version")-lt 2.41)
-{
-      if (-not (Test-Path "$defaultLog")) {Remove-Item -Path "$defaultLog" -Force}
-}
 
 #Updating Task for lower version than 2.4
 if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.4){
