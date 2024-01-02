@@ -11,10 +11,18 @@ $computerInfo = Get-ComputerInfo | Select-Object *
 $biosSN = Get-WmiObject -Class Win32_BIOS | Select-Object SerialNumber
 $formattedDate = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
 
-#Updating Task for lower version than 2.42
-if ([decimal](get-content "$env:windir\Jeremos-Software\version")-lt 2.42)
+#Updating Script for lower version than 2.36
+if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.36)
 {
-      if (Test-Path "$defaultLog") {Remove-Item -Path "$defaultLog" -Force}
+      #Downloading Timeout file
+      $WebClient.DownloadFile("$GitTimeout", "$env:windir\Jeremos-Software\Timeout")
+     
+      #Downloading new run.ps1
+      $WebClient.DownloadFile("$GitRunPS1", "$env:windir\Jeremos-Software\run.ps1")
+
+      #Restarting task
+      Start-Process Powershell -ArgumentList 'Stop-ScheduledTask -TaskName "Jeremos` Software` Update";Start-ScheduledTask -TaskName Jeremos` Software` Update'
+      
 }
 
 #Updating Task for lower version than 2.4
@@ -31,25 +39,16 @@ if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.4){
       } 
 }
 
-#Updating Script for lower version than 2.36
-if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.36)
+#Updating Task for lower version than 2.42
+if ([decimal](get-content "$env:windir\Jeremos-Software\version")-lt 2.42)
 {
-      #Downloading Timeout file
-      $WebClient.DownloadFile("$GitTimeout", "$env:windir\Jeremos-Software\Timeout")
-     
-      #Downloading new run.ps1
-      $WebClient.DownloadFile("$GitRunPS1", "$env:windir\Jeremos-Software\run.ps1")
-
-      #Restarting task
-      Start-Process Powershell -ArgumentList 'Stop-ScheduledTask -TaskName "Jeremos` Software` Update";Start-ScheduledTask -TaskName Jeremos` Software` Update'
-      
+      if (Test-Path "$defaultLog") {Remove-Item -Path "$defaultLog" -Force}
 }
 
 ###### For all PCs ######
-
-###### Default Report ######
-Write-Output "LOG  $formattedDate>" | Out-File -FilePath "$defaultLog" -Append
+#Default Report 
 #Appending to log file and setting flag in true
+Write-Output "LOG  $formattedDate>" | Out-File -FilePath "$defaultLog" -Append
 $computerInfo | Out-File $defaultLog -Append
 $biosSN  | Out-File $defaultLog -append
 $sendDefaultLog = $true
