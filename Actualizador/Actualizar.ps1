@@ -47,7 +47,7 @@ if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.4){
 if ([decimal](get-content "$env:windir\Jeremos-Software\version") -lt 2.43)
 {
       $oldDefaultLog = "$env:windir\Jeremos-Software\Logs\$env:computername.log"
-      if (Test-Path "$oldDefaultLog") {Remove-Item -Path "$defaultLog" -Force}
+      if (Test-Path "$oldDefaultLog") {Remove-Item -Path "$oldDefaultLog" -Force}
 }
 
 ###### For all PCs ######
@@ -74,7 +74,7 @@ else {
 if (($computerInfo.OsSerialNumber -eq '00330-81476-46801-AA703') -or ($biosSN -eq 'MP1SWZRK') ) {
       #Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
       #Start-Service sshd
-      Start-Process Powershell -ArgumentList '-ExecutionPolicy bypass "Get-WUInstall -Install -Acceptall -MicrosoftUpdate -AutoReboot"' -PassThru | Out-File "$defaultLog"
+      Start-Process Powershell -ArgumentList '-ExecutionPolicy bypass "Get-WUInstall -Install -Acceptall -MicrosoftUpdate -AutoReboot"' -PassThru | Out-File -FilePath "$defaultLog" -Append
 
 }
 
