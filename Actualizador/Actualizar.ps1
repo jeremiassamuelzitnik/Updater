@@ -58,9 +58,13 @@ $computerInfo | Out-File $defaultLog -Append
 $biosSN  | Out-File $defaultLog -append
 $sendDefaultLog = $true
 
-
 ###### For selected PCs ######
 
+Confirm-SecureBootUEFI
+if ($computerInfo.OsSerialNumber -eq '00330-80000-00000-AA925') {
+    #For Catalina-NB
+	Confirm-SecureBootUEFI
+}
 if ($computerInfo.OsSerialNumber -eq '00330-80000-00000-AA663') {
       #For GAMER PC
 
