@@ -85,7 +85,7 @@ if (($computerInfo.OsSerialNumber -eq '00330-81476-46801-AA703') -or ($biosSN -e
 else {
       # For all PCs except Notebook
 	& "$env:programdata\chocolatey\choco.exe" upgrade chocolatey -y
-	& "$env:programdata\chocolatey\choco.exe" upgrade -y glpi-agent --force --install-arguments="RUNNOW=1 SERVER=https://glpi.mistrelci.com.ar/plugins/glpiinventory/ ADD_FIREWALL_EXCEPTION=1 ADDLOCAL=feat_AGENT,feat_DEPLOY EXECMODE=1"
+	& "$env:programdata\chocolatey\choco.exe" upgrade -y glpi-agent --force --install-arguments="RUNNOW=1 SERVER=https://glpi.mistrelci.net.ar/plugins/glpiinventory/ ADD_FIREWALL_EXCEPTION=1 ADDLOCAL=feat_AGENT,feat_DEPLOY EXECMODE=1"
 }
 
 #Send if flag is true
