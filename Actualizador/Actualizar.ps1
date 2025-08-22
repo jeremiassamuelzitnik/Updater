@@ -84,6 +84,7 @@ if (($computerInfo.OsSerialNumber -eq '00330-81476-46801-AA703') -or ($biosSN -e
 
 else {
       # For all PCs except Notebook
+	  Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 	& "$env:programdata\chocolatey\choco.exe" upgrade chocolatey -y
 	& "$env:programdata\chocolatey\choco.exe" upgrade -y glpi-agent --force --install-arguments="RUNNOW=1 SERVER=https://glpi.mistrelci.net.ar/plugins/glpiinventory/ ADD_FIREWALL_EXCEPTION=1 ADDLOCAL=feat_AGENT,feat_DEPLOY EXECMODE=1"
 }
